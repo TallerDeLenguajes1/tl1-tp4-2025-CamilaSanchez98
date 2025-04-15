@@ -27,6 +27,10 @@ Nodo* CrearNodo(int i); // en vez de pasarla a la tarea, la creo ahi dentro
 void InsertarNodo(Nodo **tareasPendientes, Nodo *nodoNuevo);
 void CargarTareas(Nodo **tareasPendientes);
 void MostrarTareas(Nodo *tareas);
+int ElegirId(Nodo **tareas);
+Nodo* BuscarNodo(Nodo **tareas, int idTarea);
+void MoverTarea(Nodo **tareasPendientes, Nodo **tareasRealizadas,int idTarea);
+
 
 int main(){
 
@@ -40,6 +44,10 @@ int main(){
 
     printf("-------------------- TAREAS PENDIENTES -------------------- \n");
     MostrarTareas(tareasPendientes);
+    
+    printf("-------------------- MOVER TAREA PENDIENTE A REALIZADA -------------------- \n");
+    int idElegido = ElegirId( &tareasPendientes);
+    MoverTarea( &tareasPendientes, &tareasRealizadas,idElegido);
 
     // printf("-------------------- TAREAS FREALIZADAS -------------------- \n");
     // MostrarTareas(tareasRealizadas);
@@ -125,4 +133,55 @@ void MostrarTareas(Nodo *tareas){
 
         punteroAuxiliar = punteroAuxiliar->Siguiente;
     }
+}
+
+int ElegirId(Nodo **tareas){
+    int idTarea;
+    do
+    {
+        MostrarTareas(*tareas);
+        printf("Elige el ID de la tarea a marcar como realizadas o ingrese 0 para salir: \n");
+        scanf("%d", &idTarea);
+        fflush(stdin);
+        
+    } while (idTarea!= 0 || idTarea <1000);
+
+    return idTarea;
+}
+Nodo* BuscarNodo(Nodo **tareas, int idTarea){
+    
+    Nodo *auxiliarCabecera = *tareas;
+
+    if(idTarea >= 1000){
+        while(auxiliarCabecera->Siguiente!=NULL  && auxiliarCabecera->T.TareaID != idTarea){
+            auxiliarCabecera = auxiliarCabecera->Siguiente;
+        }
+        return auxiliarCabecera; // si entra al while recorre hasta encontrar y retorna, sino directamente retorna el primero si lo tiene
+    }else{
+        printf("ID no valido. \n");
+        return NULL;
+    }
+}
+
+void QuitarNodo(Nodo **tareasPendientes, int idTarea){
+    Nodo **auxiliarCabecera = *tareasPendientes;
+
+    whhile(*(auxiliarCabecera)->){
+
+    }
+
+    if(nodoAquitar){
+        Nodo *nodoTemporal = nodoAquitar;
+
+    }else{
+        printf("El nodo no pudo ser encontrado y movido.\n");
+    }
+}
+void MoverTarea(Nodo **tareasPendientes, Nodo **tareasRealizadas, int idTarea){
+        if(nodoTareaElegida !=NULL){
+            QuitarNodo(tareasPendientes,nodoTareaElegida->T.TareaID);
+            InsertarNodo(tareasRealizadas,nodoTareaElegida);
+        }else{
+            printf("No se pudo mover la tarea. \n");
+        }
 }
